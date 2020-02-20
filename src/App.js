@@ -7,7 +7,7 @@ import Total from "./components/Total";
 
 import { connect } from "react-redux";
 
-const App = () => {
+const App = (props) => {
   // const state = {
   //   additionalPrice: 0,
   //   car: {
@@ -36,15 +36,23 @@ const App = () => {
   return (
     <div className="boxes">
       <div className="box">
-        <Header car={state.car} />
-        <AddedFeatures car={state.car} />
+        <Header car={props.car} />
+        <AddedFeatures car={props.car} />
       </div>
       <div className="box">
-        <AdditionalFeatures additionalFeatures={state.additionalFeatures} />
-        <Total car={state.car} additionalPrice={state.additionalPrice} />
+        <AdditionalFeatures additionalFeatures={props.additionalFeatures} />
+        <Total car={props.car} additionalPrice={props.additionalPrice} />
       </div>
     </div>
   );
 };
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    car: state.car,
+    additionalFeatures: state.additionalFeatures,
+    additionalPrice: state.additionalPrice
+  };
+}
+
+export default connect(mapStateToProps)(App);
